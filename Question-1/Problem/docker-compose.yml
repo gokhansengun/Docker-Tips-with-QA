@@ -1,0 +1,17 @@
+version: "2"
+
+services:
+
+    flyway:
+        image: shouldbee/flyway
+        volumes:
+            - ./sql:/flyway/sql
+        command: -url=jdbc:postgresql://db:5432/ -user="postgres" -password="secret" migrate
+
+    db:
+        image: postgres:9.4
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_PASSWORD=secret
+

@@ -1,0 +1,19 @@
+version: "2"
+
+services:
+
+    flyway:
+        image: shouldbee/flyway
+        entrypoint: []
+        volumes:
+            - ./sql:/flyway/sql
+            - ./wait-for-it.sh:/scripts/wait-for-it.sh:ro
+        command: /scripts/wait-for-it.sh -t 30 db:5432 -- flyway -url=jdbc:postgresql://db:5432/ -user=postgres -password=secret migrate
+
+    db:
+        image: postgres:9.4
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_PASSWORD=secret
+

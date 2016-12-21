@@ -1,0 +1,18 @@
+version: "2"
+
+services:
+
+    flyway:
+        image: shouldbee/flyway
+        entrypoint: []
+        volumes:
+            - ./sql:/flyway/sql
+        command: bash -c "echo 'Sleep 15 secs' && sleep 15 && flyway -url=jdbc:postgresql://db:5432/ -user=postgres -password=secret clean"
+
+    db:
+        image: postgres:9.4
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_PASSWORD=secret
+

@@ -1,0 +1,17 @@
+version: "2"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-Nginx
+    
+  curl:
+    image: byrnedo/alpine-curl
+
+  lb:
+    image: haproxy:1.7.1
+    volumes:
+      - "./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg"
+    ports:
+      - "8080:8080"

@@ -1,0 +1,20 @@
+version: "2"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-Nginx
+    volumes:
+      - "./init-wrapper.sh:/script/init-wrapper.sh"
+    command: [ "/script/init-wrapper.sh" ]
+    
+  curl:
+    image: byrnedo/alpine-curl
+
+  lb:
+    image: haproxy:1.7.1
+    volumes:
+      - "./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg"
+    ports:
+      - "8080:8080"

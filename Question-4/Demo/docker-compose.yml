@@ -1,0 +1,10 @@
+version: "2"
+
+services:
+
+    program:
+        image: ubuntu:16.04
+        volumes:
+            - ./program/random-file-generator.sh:/usr/app/runner.sh
+        command: /usr/app/runner.sh
+
